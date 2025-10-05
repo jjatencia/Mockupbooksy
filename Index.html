@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>MarketCuts — Lista</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <style>
+    :root{
+      --bg:#f5f6f7;
+      --card:#ffffff;
+      --text:#101418;
+      --muted:#5b6876;
+      --accent:#176a4f;           /* verde botón */
+      --accent-press:#0f4d39;
+      --star:#f5a623;
+      --divider:#e9edf1;
+      --pill:#eef6f3;
+      --radius:16px;
+      --shadow:0 1px 1px rgba(12,20,33,.06), 0 4px 16px rgba(12,20,33,.08);
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,Helvetica,Arial,sans-serif;}
+    /* Safe areas for iOS notch */
+    body{padding-bottom:env(safe-area-inset-bottom);}
+    .app{
+      max-width:540px;
+      margin:0 auto;
+      min-height:100svh;
+      display:flex;
+      flex-direction:column;
+    }
+    .topbar{
+      position:sticky;top:0;z-index:10;
+      background:var(--card);
+      padding:12px 16px;
+      padding-top:calc(10px + env(safe-area-inset-top));
+      box-shadow:0 1px 0 var(--divider);
+      display:flex;gap:12px;align-items:center;
+    }
+    .logo{
+      width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#1e7c60,#0d3f30);
+    }
+    .brand{font-weight:700;letter-spacing:.2px}
+    .search{
+      margin:10px 16px 12px;
+      display:flex;gap:8px;align-items:center;
+      background:#fff;border:1px solid var(--divider);border-radius:999px;padding:10px 14px;
+      box-shadow:var(--shadow);
+    }
+    .search input{border:none;outline:none;width:100%;font-size:16px;background:transparent;color:var(--text);}
+    .chips{display:flex;gap:8px;overflow:auto;padding:0 16px 12px}
+    .chip{background:var(--pill);color:#1d3b31;border-radius:999px;padding:8px 12px;font-size:12px;white-space:nowrap;border:1px solid #d7e7e1}
+    .list{display:flex;flex-direction:column;gap:12px;padding:12px 12px 40px}
+    .card{
+      background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+      padding:12px;display:grid;grid-template-columns:100px 1fr;gap:12px;align-items:center;
+    }
+    .thumb{width:100px;height:100px;border-radius:12px;overflow:hidden;border:1px solid var(--divider);background:#ddd}
+    .title{font-weight:800;font-size:18px;line-height:1.15;margin:0 0 4px}
+    .sub{color:var(--muted);font-size:14px;margin:0 0 6px}
+    .row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+    .stars{display:flex;align-items:center;gap:2px}
+    .star{width:14px;height:14px;display:inline-block;background:conic-gradient(var(--star) 0 75%,#dedede 0 100%);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+    .count{color:var(--muted);font-size:13px}
+    .btn{
+      margin-left:auto;background:var(--accent);color:#fff;border:none;border-radius:999px;padding:10px 14px;
+      font-weight:700;font-size:14px;box-shadow:0 4px 10px rgba(23,106,79,.25);
+    }
+    .btn:active{background:var(--accent-press);transform:translateY(1px)}
+    .footer-space{height:80px}
+    /* Small helper for demo: extend page a lot for real scroll */
+    .spacer{height:6px}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="logo" aria-hidden="true"></div>
+      <div class="brand">MarketCuts</div>
+    </header>
+
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="#64748b" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="#64748b" stroke-width="2" stroke-linecap="round"/></svg>
+      <input placeholder="Buscar barberías, servicios..." />
+    </div>
+
+    <div class="chips">
+      <div class="chip">Barbería</div>
+      <div class="chip">Corte</div>
+      <div class="chip">Barba</div>
+      <div class="chip">Afeitado</div>
+      <div class="chip">Degradado</div>
+    </div>
+
+    <main class="list">
+      <!-- CARD TEMPLATE: repeat with varied SVG styles to simulate different fotos -->
+      <!-- We'll define a function-like comment for readability
+           use data-name, data-price, data-rating, data-reviews for quick edits -->
+      
+      <!-- 1 -->
+      <article class="card" data-name="The Gentlemen’s Den" data-price="18" data-rating="4.9" data-reviews="98">
+        <div class="thumb">
+          <!-- Barbershop photo style: warm wood -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#3b2a1e"/><stop offset="1" stop-color="#7a5236"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#g1)"/>
+            <rect x="18" y="24" width="60" height="60" rx="8" fill="#222" opacity=".35"/>
+            <rect x="86" y="24" width="96" height="60" rx="8" fill="#222" opacity=".2"/>
+            <rect x="18" y="100" width="164" height="78" rx="10" fill="#111" opacity=".18"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">The Gentlemen’s Den</h3>
+          <p class="sub">Desde 18 €</p>
+          <div class="row">
+            <div class="stars" aria-label="4.9 de 5">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(98)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="card" data-name="Urban Cuts" data-price="25" data-rating="4.6" data-reviews="210">
+        <div class="thumb">
+          <!-- cool teal studio -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#0d3b3e"/><stop offset="1" stop-color="#1f7a82"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#g2)"/>
+            <circle cx="60" cy="80" r="34" fill="#fff" opacity=".2"/>
+            <rect x="100" y="40" width="80" height="100" rx="10" fill="#fff" opacity=".12"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Urban Cuts</h3>
+          <p class="sub">Desde 25 €</p>
+          <div class="row">
+            <div class="stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+            <span class="count">(210)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="card" data-name="Sharp &amp; Dapper" data-price="21" data-rating="4.7" data-reviews="124">
+        <div class="thumb">
+          <!-- vintage brown leather -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#553a2e"/>
+            <rect x="18" y="26" width="164" height="40" rx="6" fill="#a7795e" opacity=".35"/>
+            <rect x="18" y="78" width="164" height="96" rx="10" fill="#000" opacity=".12"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Sharp &amp; Dapper</h3>
+          <p class="sub">Desde 21 €</p>
+          <div class="row">
+            <div class="stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+            <span class="count">(124)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="card" data-name="Elite Barbershop" data-price="19" data-rating="4.8" data-reviews="132">
+        <div class="thumb">
+          <!-- bright studio -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#eceff4"/><stop offset="1" stop-color="#cfd8e3"/>
+            </linearGradient>
+            <rect width="200" height="200" fill="url(#g4)"/>
+            <rect x="20" y="26" width="60" height="60" rx="10" fill="#8aa1b1" opacity=".35"/>
+            <rect x="90" y="26" width="90" height="120" rx="12" fill="#8aa1b1" opacity=".18"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Elite Barbershop</h3>
+          <p class="sub">Desde 19 €</p>
+          <div class="row">
+            <div class="stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+            <span class="count">(132)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="card" data-name="Style Street Barbers" data-price="29" data-rating="4.7" data-reviews="87">
+        <div class="thumb">
+          <!-- dark moody -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#14171a"/>
+            <rect x="18" y="20" width="164" height="70" rx="8" fill="#2b3137"/>
+            <circle cx="160" cy="150" r="32" fill="#364049"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Style Street Barbers</h3>
+          <p class="sub">Desde 29 €</p>
+          <div class="row">
+            <div class="stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+            <span class="count">(87)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="card" data-name="Master’s Touch" data-price="23" data-rating="4.9" data-reviews="109">
+        <div class="thumb">
+          <!-- copper vibe -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#7a3e1e"/><stop offset="1" stop-color="#c77b45"/>
+            </linearGradient></defs>
+            <rect width="200" height="200" fill="url(#g6)"/>
+            <rect x="24" y="28" width="152" height="120" rx="12" fill="#000" opacity=".15"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Master’s Touch</h3>
+          <p class="sub">Desde 23 €</p>
+          <div class="row">
+            <div class="stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+            <span class="count">(109)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="card" data-name="The Barber Lounge" data-price="18" data-rating="4.6" data-reviews="176">
+        <div class="thumb">
+          <!-- steel/industrial -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#3c474f"/>
+            <rect x="18" y="22" width="164" height="60" rx="10" fill="#8fa3ad" opacity=".35"/>
+            <rect x="18" y="90" width="120" height="88" rx="10" fill="#8fa3ad" opacity=".22"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">The Barber Lounge</h3>
+          <p class="sub">Desde 18 €</p>
+          <div class="row">
+            <div class="stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+            <span class="count">(176)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="card" data-name="Downtown Barber" data-price="20" data-rating="4.8" data-reviews="154">
+        <div class="thumb">
+          <!-- brick wall -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#803a2b"/>
+            <g opacity=".35" fill="#3a1a14">
+              <rect x="10" y="20" width="60" height="30"/><rect x="75" y="20" width="60" height="30"/><rect x="140" y="20" width="50" height="30"/>
+              <rect x="10" y="55" width="60" height="30"/><rect x="75" y="55" width="60" height="30"/><rect x="140" y="55" width="50" height="30"/>
+            </g>
+            <rect x="18" y="110" width="164" height="70" rx="10" fill="#000" opacity=".18"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Downtown Barber</h3>
+          <p class="sub">Desde 20 €</p>
+          <div class="row">
+            <div class="stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+            <span class="count">(154)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="card" data-name="Trim &amp; Proper" data-price="17" data-rating="4.5" data-reviews="89">
+        <div class="thumb">
+          <!-- green walls -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#0f3d2e"/>
+            <rect x="18" y="24" width="80" height="120" rx="12" fill="#84c7a8" opacity=".25"/>
+            <circle cx="150" cy="140" r="30" fill="#cfeadd" opacity=".5"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Trim &amp; Proper</h3>
+          <p class="sub">Desde 17 €</p>
+          <div class="row">
+            <div class="stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+            <span class="count">(89)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10 -->
+      <article class="card" data-name="Classic Cuts" data-price="18" data-rating="4.7" data-reviews="134">
+        <div class="thumb">
+          <!-- classic chairs -->
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#2a2b30"/>
+            <rect x="18" y="26" width="72" height="60" rx="8" fill="#b7b9c3" opacity=".28"/>
+            <rect x="96" y="26" width="86" height="96" rx="10" fill="#b7b9c3" opacity=".18"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Classic Cuts</h3>
+          <p class="sub">Desde 18 €</p>
+          <div class="row">
+            <div class="stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+            <span class="count">(134)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Spacer to ensure long scroll feel -->
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+    
+      <article class="card" data-name="Fade Masters" data-price="22" data-rating="4.9" data-reviews="156">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#1e3a8a"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Fade Masters</h3>
+          <p class="sub">Desde 22 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(156)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    
+      <article class="card" data-name="Barber Republic" data-price="20" data-rating="4.7" data-reviews="120">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#7f1d1d"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Barber Republic</h3>
+          <p class="sub">Desde 20 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(120)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    
+      <article class="card" data-name="Gent’s Corner" data-price="19" data-rating="4.8" data-reviews="97">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#14532d"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Gent’s Corner</h3>
+          <p class="sub">Desde 19 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(97)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    
+      <article class="card" data-name="Royal Clippers" data-price="24" data-rating="4.9" data-reviews="183">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#78350f"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Royal Clippers</h3>
+          <p class="sub">Desde 24 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(183)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    
+      <article class="card" data-name="Empire Cuts" data-price="23" data-rating="4.6" data-reviews="131">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#3f3f46"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Empire Cuts</h3>
+          <p class="sub">Desde 23 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(131)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    
+      <article class="card" data-name="Next Level Barbers" data-price="25" data-rating="4.8" data-reviews="142">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#312e81"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Next Level Barbers</h3>
+          <p class="sub">Desde 25 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(142)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    
+      <article class="card" data-name="King’s Touch" data-price="26" data-rating="4.9" data-reviews="165">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#164e63"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">King’s Touch</h3>
+          <p class="sub">Desde 26 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(165)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    
+      <article class="card" data-name="La Esquina del Barbero" data-price="18" data-rating="4.7" data-reviews="88">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#6b21a8"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">La Esquina del Barbero</h3>
+          <p class="sub">Desde 18 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(88)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    
+      <article class="card" data-name="Urban Fade Lab" data-price="21" data-rating="4.8" data-reviews="175">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#4338ca"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">Urban Fade Lab</h3>
+          <p class="sub">Desde 21 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(175)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    
+      <article class="card" data-name="The Blade Room" data-price="27" data-rating="4.9" data-reviews="201">
+        <div class="thumb">
+          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="200" fill="#881337"/>
+            <rect x="20" y="20" width="160" height="100" rx="12" fill="#fff" opacity=".15"/>
+            <circle cx="150" cy="150" r="25" fill="#000" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="title">The Blade Room</h3>
+          <p class="sub">Desde 27 €</p>
+          <div class="row">
+            <div class="stars">
+              <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
+            </div>
+            <span class="count">(201)</span>
+            <button class="btn">Reservar</button>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <div class="footer-space"></div>
+  </div>
+</body>
+</html>
