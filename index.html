@@ -68,9 +68,35 @@
       font-weight:700;font-size:14px;box-shadow:0 4px 10px rgba(23,106,79,.25);
     }
     .btn:active{background:var(--accent-press);transform:translateY(1px)}
+    .promo-badge{
+      display:inline-flex;align-items:center;gap:6px;background:var(--pill);color:#14532d;font-size:12px;font-weight:600;
+      padding:6px 10px;border-radius:999px;margin-bottom:8px;
+    }
+    .promo-badge svg{width:16px;height:16px}
+    .detail{
+      position:fixed;inset:0;background:rgba(16,20,24,.55);display:flex;justify-content:center;align-items:flex-end;
+      padding:24px;box-sizing:border-box;z-index:20;
+    }
+    .detail[hidden]{display:none}
+    .detail-card{
+      background:var(--card);border-radius:28px 28px 0 0;padding:28px 24px 36px;width:100%;max-width:540px;
+      box-shadow:0 -12px 40px rgba(12,20,33,.22);
+      animation:slideup .28s ease;
+    }
+    .detail-card:focus{outline:2px solid var(--accent);outline-offset:4px}
+    .detail-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+    .detail-title{font-size:22px;font-weight:800;margin:0;color:var(--text)}
+    .detail-close{
+      margin-left:auto;background:transparent;border:none;color:var(--muted);font-size:14px;font-weight:600;
+    }
+    .detail-info{display:flex;gap:12px;color:var(--muted);font-size:14px;margin-bottom:16px}
+    .detail-info span{display:flex;align-items:center;gap:6px}
+    .detail-info strong{color:var(--text);font-weight:700}
+    .detail-message{background:var(--pill);padding:14px 16px;border-radius:16px;font-size:14px;color:#1d3b31;margin-bottom:20px}
+    .detail-actions{display:flex;gap:12px}
+    .detail-actions .btn{flex:1;justify-content:center;display:inline-flex;align-items:center;text-align:center}
+    @keyframes slideup{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
     .footer-space{height:80px}
-    /* Small helper for demo: extend page a lot for real scroll */
-    .spacer{height:6px}
   </style>
 </head>
 <body>
@@ -128,7 +154,7 @@
       </article>
 
       <!-- 2 -->
-      <article class="card" data-name="Urban Cuts" data-price="25" data-rating="4.6" data-reviews="210">
+      <article class="card" data-name="Urban Cuts" data-price="25" data-rating="4.6" data-reviews="210" data-promo="Recibirás mensajes exclusivos con ofertas para tentarte a probar nuevos looks.">
         <div class="thumb">
           <!-- cool teal studio -->
           <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -143,6 +169,12 @@
           </svg>
         </div>
         <div>
+          <div class="promo-badge" aria-label="Oferta con mensajes tentadores">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1d3b31" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/>
+            </svg>
+            Mensajes con ofertas para tentar tu cambio
+          </div>
           <h3 class="title">Urban Cuts</h3>
           <p class="sub">Desde 25 €</p>
           <div class="row">
@@ -199,7 +231,7 @@
       </article>
 
       <!-- 5 -->
-      <article class="card" data-name="Style Street Barbers" data-price="29" data-rating="4.7" data-reviews="87">
+      <article class="card" data-name="Style Street Barbers" data-price="29" data-rating="4.7" data-reviews="87" data-promo="Recibirás recordatorios con promociones chispeantes para que no cambies de idea.">
         <div class="thumb">
           <!-- dark moody -->
           <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -209,6 +241,12 @@
           </svg>
         </div>
         <div>
+          <div class="promo-badge" aria-label="Oferta con mensajes tentadores">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1d3b31" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/>
+            </svg>
+            Promos directas a tu bandeja de entrada
+          </div>
           <h3 class="title">Style Street Barbers</h3>
           <p class="sub">Desde 29 €</p>
           <div class="row">
@@ -288,7 +326,7 @@
       </article>
 
       <!-- 9 -->
-      <article class="card" data-name="Trim &amp; Proper" data-price="17" data-rating="4.5" data-reviews="89">
+      <article class="card" data-name="Trim &amp; Proper" data-price="17" data-rating="4.5" data-reviews="89" data-promo="Mensajes sorpresa con upgrades para que no puedas resistirte a reservar.">
         <div class="thumb">
           <!-- green walls -->
           <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -298,6 +336,12 @@
           </svg>
         </div>
         <div>
+          <div class="promo-badge" aria-label="Oferta con mensajes tentadores">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1d3b31" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/>
+            </svg>
+            Mensajes que te tientan con mejoras
+          </div>
           <h3 class="title">Trim &amp; Proper</h3>
           <p class="sub">Desde 17 €</p>
           <div class="row">
@@ -328,12 +372,6 @@
           </div>
         </div>
       </article>
-
-      <!-- Spacer to ensure long scroll feel -->
-      <div class="spacer"></div>
-      <div class="spacer"></div>
-      <div class="spacer"></div>
-    
       <article class="card" data-name="Fade Masters" data-price="22" data-rating="4.9" data-reviews="156">
         <div class="thumb">
           <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -545,7 +583,80 @@
       </article>
     </main>
 
+    <div class="detail" hidden aria-hidden="true">
+      <div class="detail-card" role="dialog" aria-modal="true" aria-labelledby="detail-title" tabindex="-1">
+        <div class="detail-header">
+          <h2 class="detail-title" id="detail-title">&nbsp;</h2>
+          <button class="detail-close" type="button">Cerrar</button>
+        </div>
+        <div class="detail-info">
+          <span>💶 <strong class="detail-price"></strong></span>
+          <span>⭐ <strong class="detail-rating"></strong></span>
+          <span>🗣️ <strong class="detail-reviews"></strong></span>
+        </div>
+        <div class="detail-message"></div>
+        <div class="detail-actions">
+          <button class="btn detail-book" type="button">Continuar con la reserva</button>
+        </div>
+      </div>
+    </div>
+
     <div class="footer-space"></div>
   </div>
+  <script>
+    const detail = document.querySelector('.detail');
+    const detailTitle = detail.querySelector('.detail-title');
+    const detailPrice = detail.querySelector('.detail-price');
+    const detailRating = detail.querySelector('.detail-rating');
+    const detailReviews = detail.querySelector('.detail-reviews');
+    const detailMessage = detail.querySelector('.detail-message');
+    const detailClose = detail.querySelector('.detail-close');
+    const detailBook = detail.querySelector('.detail-book');
+    let lastTrigger = null;
+
+    function openDetail(card) {
+      const { name, price, rating, reviews, promo } = card.dataset;
+      detailTitle.textContent = name;
+      detailPrice.textContent = `Desde ${price} €`;
+      detailRating.textContent = `${rating} / 5`;
+      detailReviews.textContent = `${reviews} reseñas`;
+      detailMessage.textContent = promo || 'Aquí podrás revisar los servicios, horarios y confirmar tu cita sin salir de la ficha.';
+      detail.hidden = false;
+      detail.setAttribute('aria-hidden', 'false');
+      detailClose.focus({ preventScroll: true });
+    }
+
+    function closeDetail() {
+      detail.hidden = true;
+      detail.setAttribute('aria-hidden', 'true');
+      if (lastTrigger) {
+        lastTrigger.focus({ preventScroll: true });
+      }
+    }
+
+    document.querySelectorAll('.card .btn').forEach(btn => {
+      btn.addEventListener('click', event => {
+        event.preventDefault();
+        const card = event.currentTarget.closest('.card');
+        lastTrigger = event.currentTarget;
+        openDetail(card);
+      });
+    });
+
+    detailClose.addEventListener('click', closeDetail);
+    detail.addEventListener('click', event => {
+      if (event.target === detail) {
+        closeDetail();
+      }
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !detail.hidden) {
+        closeDetail();
+      }
+    });
+    detailBook.addEventListener('click', () => {
+      detailMessage.textContent = 'Reserva iniciada. Aquí aparecería el flujo completo de la ficha de la barbería.';
+    });
+  </script>
 </body>
 </html>
